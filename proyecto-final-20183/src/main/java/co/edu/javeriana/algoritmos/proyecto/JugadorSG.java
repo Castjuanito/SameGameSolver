@@ -43,7 +43,7 @@ public class JugadorSG implements Jugador {
 			}
 		}
 
-		this.tNuevo = actualizarTablero( tSG, t); //nuevo trablero resultante al jugar un color
+		//this.tNuevo = actualizarTablero( tSG, t); //nuevo trablero resultante al jugar un color
 		return null;
 	}
 	
@@ -79,13 +79,13 @@ public class JugadorSG implements Jugador {
 	}
 	
 	private Tablero actualizarTablero(TableroSG tSG){
-		Tablero tNuevo = new Tablero(tSG.getFilas(),tSG.getColumnas());
+		TableroSG tNuevo = new TableroSG(tSG.getFilas(),tSG.getColumnas());
 		for(int i=0; i<tSG.getFilas();i++){
 			for(int j=0; j<tSG.getColumnas(); j++){
 				if(tSG.getTableroSG().get(i).get(j) != null){
-					tNuevo[i][j]= tSG.getTableroSG().get(i).get(j).getColor();
+					tNuevo.getTableroSG().get(i).get(j).setColor(tSG.getTableroSG().get(i).get(j).getColor());
 				}else{
-					tNuevo[i][j]=-1;
+					tNuevo.getTableroSG().get(i).get(j).setColor(-1);
 				}
 			}
 		}	

@@ -27,7 +27,15 @@ public class Casilla
         return columna;
     }
 
-    @Override
+    public void setFila(int fila) {
+		this.fila = fila;
+	}
+
+	public void setColumna(int columna) {
+		this.columna = columna;
+	}
+
+	@Override
     public String toString() {
         return "Casilla [fila=" + fila + ", columna=" + columna + "]";
     }

@@ -25,4 +25,6 @@ public interface Tablero extends Cloneable {
     
     int getColumnas();
     
+    CasillaSG optenerCasilla (int x, int y);
+    
 }

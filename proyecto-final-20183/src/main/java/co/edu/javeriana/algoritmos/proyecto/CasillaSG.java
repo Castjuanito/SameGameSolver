@@ -2,7 +2,8 @@ package co.edu.javeriana.algoritmos.proyecto;
 
 public class CasillaSG extends Casilla {
 	private int color;
-	private boolean visitado; 
+	private boolean visitado;
+	
 
 	public CasillaSG(int color,int fila, int columna, boolean visitado) {
 		super(fila, columna);

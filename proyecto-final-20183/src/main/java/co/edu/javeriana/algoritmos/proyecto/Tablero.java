@@ -3,6 +3,8 @@
  */
 package co.edu.javeriana.algoritmos.proyecto;
 
+import co.edu.javeriana.algoritmos.proyecto.BaronCastanedaHarkerVillagran.CasillaSG;
+
 /**
  * La implementación que se utilizará dentro del robot la suministraré yo, pero es buena idea
  * que ustedes generen la suya para probar.
@@ -19,12 +21,16 @@ public interface Tablero extends Cloneable {
      */
     int efectuarJugada( Casilla jugada ) throws IllegalArgumentException;
     
+    int simularJugada( Casilla jugada ) throws IllegalArgumentException;
+    
     int getNumeroColores();
     
     int getFilas();
     
     int getColumnas();
     
-    CasillaSG optenerCasilla (int x, int y);
+    int colorCasilla (int i, int j);
+    
+    int[][] coloresTablero ();
     
 }

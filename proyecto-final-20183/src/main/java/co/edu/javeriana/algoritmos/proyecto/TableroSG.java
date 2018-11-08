@@ -100,7 +100,10 @@ public class TableroSG implements Tablero {
 		}
 		eliminarCasilla (datosEliminar);
 		
-		return 0;
+		int puntaje = 0;
+		puntaje = (vecinos.size()-2)*(vecinos.size()-2);
+		
+		return puntaje;
 	}
 	protected void eliminarColumna (int y) {
 		for (int i =y; i<columnas-1; i++) {

@@ -199,6 +199,15 @@ public class TableroSG implements Tablero {
 		//TODO: Transformar mapa a matriz
 		return null;
 	}
-	
+	public int jugarColor(int color){
+            for(int i=0; i<this.filas; i++){
+                for(int j=0; j<this.columnas; j++){
+                    if(tableroSG.get(i).get(j).getColor() == color){
+                        return efectuarJugada(tableroSG.get(i).get(j));
+                    }
+                }
+            }
+            return 0;
+        }
 
 }

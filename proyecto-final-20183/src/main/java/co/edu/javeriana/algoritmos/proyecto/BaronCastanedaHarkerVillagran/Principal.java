@@ -19,7 +19,7 @@ public class Principal {
 		
 		System.out.println("=======================================");
 		Casilla jugada = new Casilla(5, 4);
-		tableroDemo.efectuarJugada(jugada);
+		tableroDemo.jugarColor(1);
 		
 		for (int i =0; i<tableroDemo.getFilas(); i++) {
 			for(int j =0; j<tableroDemo.getColumnas(); j++) {

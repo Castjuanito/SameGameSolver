@@ -12,6 +12,8 @@ public class TableroSG implements Tablero {
 	private int columnas;
 	private int numeroColores; 
 	private HashMap<Integer,HashMap<Integer, CasillaSG> > tableroSG;
+        private int puntaje =0;
+        private List<Casilla> jugadas;
 	
 	class Pareja {
 		int minimo =0;
@@ -21,6 +23,21 @@ public class TableroSG implements Tablero {
 			maximo =0;
 		}
 	}
+        public TableroSG(TableroSG t){
+            this.jugadas = new ArrayList<Casilla>();
+            this.tableroSG = new HashMap<Integer,HashMap<Integer, CasillaSG> >();
+            this.filas = t.getFilas();
+            this.columnas = t.getColumnas();
+            for(int i=0; i < t.getColumnas(); i++){
+		HashMap<Integer,CasillaSG> colum = new HashMap<Integer,CasillaSG>();
+		for(int j=0; j < t.getFilas(); j--){
+			colum.put(j , new CasillaSG(t.colorCasilla(i, j),i,j,false));
+		}
+		tableroSG.put(i,colum);
+            }
+            this.puntaje = t.getPuntaje();
+            this.jugadas.addAll(t.getJugadas());
+        }
 	
 	public TableroSG (Tablero t){
 		this.tableroSG = new HashMap<Integer,HashMap<Integer, CasillaSG> >();
@@ -103,7 +120,7 @@ public class TableroSG implements Tablero {
 			if(!datosEliminar.containsKey(vecinos.get(i).getColumna())){
 				Pareja p = new Pareja();
 				p.maximo = vecinos.get(i).getFila();
-				p.minimo = vecinos.get(i).getFila();
+            			p.minimo = vecinos.get(i).getFila();
 				datosEliminar.put(vecinos.get(i).getColumna(), p);
 			}else {
 				if(datosEliminar.get(vecinos.get(i).getColumna()).maximo< vecinos.get(i).getFila()) {
@@ -200,14 +217,40 @@ public class TableroSG implements Tablero {
 		return null;
 	}
 	public int jugarColor(int color){
+            this.puntaje=0; //Puntaje total de jugar un color
+            this.jugadas = new ArrayList<Casilla>(); //Jugadas que se hicieron jugando un solo color
+
             for(int i=0; i<this.filas; i++){
                 for(int j=0; j<this.columnas; j++){
-                    if(tableroSG.get(i).get(j).getColor() == color){
-                        return efectuarJugada(tableroSG.get(i).get(j));
+                    if(tableroSG.get(i).get(j) != null && tableroSG.get(i).get(j).getColor() != -1){
+                        if(tableroSG.get(i).get(j).getColor() == color){
+                            try{
+                                this.puntaje += efectuarJugada(tableroSG.get(i).get(j));
+                                this.jugadas.add(tableroSG.get(i).get(j));
+                            }catch(IllegalArgumentException e){
+                                System.err.println(e.toString());
+                            }
+                        }
                     }
                 }
             }
             return 0;
         }
 
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public List<Casilla> getJugadas() {
+        return jugadas;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public void setJugadas(List<Casilla> jugadas) {
+        this.jugadas = jugadas;
+    }
+        
 }

@@ -1,6 +1,7 @@
 package co.edu.javeriana.algoritmos.proyecto.BaronCastanedaHarkerVillagran;
 
 import co.edu.javeriana.algoritmos.proyecto.Casilla;
+import java.util.List;
 
 public class CasillaSG extends Casilla {
 	private int color;

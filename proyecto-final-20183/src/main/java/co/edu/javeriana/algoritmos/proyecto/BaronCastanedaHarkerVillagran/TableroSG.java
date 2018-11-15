@@ -234,24 +234,22 @@ public class TableroSG implements Tablero {
                                 this.puntaje += efectuarJugada(tableroSG.get(i).get(j));
                                 this.jugadas.add(tableroSG.get(i).get(j));
                             }catch(IllegalArgumentException e){
-                                System.err.println(e.toString());
                             }
                         }
                     }
                 }
             }
-            return 0;
+            return this.puntaje;
         }
-	public List<Casillas> recorrerColores( ){
-	    List<Casillas> jugadas = new ArrayList<Casilla>();
+	public int recorrerColores( ){
 	    for(int i=0; i<this.filas; i++){
                 for(int j=0; j<this.columnas; j++){
-		    if(tableroSG.get(i).get(j).getColor() != -1){
-		    	jugadas.addAll( jugarColor( tableroSG.get(i).get(j).getColor() ) );
+		    if(tableroSG.get(i).get(j) != null && tableroSG.get(i).get(j).getColor() != -1){
+		    	jugarColor( tableroSG.get(i).get(j).getColor());
 		    }
 		}
 	    }
-	    return jugadas;
+	    return this.puntaje;
 	}	
 
     public int getPuntaje() {

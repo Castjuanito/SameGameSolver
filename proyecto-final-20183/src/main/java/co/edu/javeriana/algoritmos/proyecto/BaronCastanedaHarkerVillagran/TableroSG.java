@@ -209,5 +209,16 @@ public class TableroSG implements Tablero {
             }
             return 0;
         }
+	public List<Casillas> recorrerColores( ){
+	    List<Casillas> jugadas = new ArrayList<Casilla>();
+	    for(int i=0; i<this.filas; i++){
+                for(int j=0; j<this.columnas; j++){
+		    if(tableroSG.get(i).get(j).getColor() != -1){
+		    	jugadas.addAll( jugarColor( tableroSG.get(i).get(j).getColor() ) );
+		    }
+		}
+	    }
+	    return jugadas;
+	}	
 
 }

@@ -199,6 +199,12 @@ public class TableroSG implements Tablero {
 		//TODO: Transformar mapa a matriz
 		return null;
 	}
+	
+	/**
+	* 1. Cambiar el retorno dentro del if
+	* 2. Retornar lista de juagadas.
+	* 3. Retornar tambien puntaje asociado a esas jugadas.
+	*/ 
 	public int jugarColor(int color){
             for(int i=0; i<this.filas; i++){
                 for(int j=0; j<this.columnas; j++){

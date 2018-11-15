@@ -216,6 +216,12 @@ public class TableroSG implements Tablero {
 		//TODO: Transformar mapa a matriz
 		return null;
 	}
+	
+	/**
+	* 1. Cambiar el retorno dentro del if
+	* 2. Retornar lista de juagadas.
+	* 3. Retornar tambien puntaje asociado a esas jugadas.
+	*/ 
 	public int jugarColor(int color){
             this.puntaje=0; //Puntaje total de jugar un color
             this.jugadas = new ArrayList<Casilla>(); //Jugadas que se hicieron jugando un solo color
@@ -236,6 +242,17 @@ public class TableroSG implements Tablero {
             }
             return 0;
         }
+	public List<Casillas> recorrerColores( ){
+	    List<Casillas> jugadas = new ArrayList<Casilla>();
+	    for(int i=0; i<this.filas; i++){
+                for(int j=0; j<this.columnas; j++){
+		    if(tableroSG.get(i).get(j).getColor() != -1){
+		    	jugadas.addAll( jugarColor( tableroSG.get(i).get(j).getColor() ) );
+		    }
+		}
+	    }
+	    return jugadas;
+	}	
 
     public int getPuntaje() {
         return puntaje;

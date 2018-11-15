@@ -114,7 +114,7 @@ public class TableroSG implements Tablero {
 		if (vecinos.size() <= 1) {
 			throw new IllegalArgumentException("La Judada debe ser de mas de una casilla");
 		}
-		
+		this.jugadas.add(tableroSG.get(jugada.getColumna()).get(jugada.getFila()));
 		HashMap<Integer, Pareja> datosEliminar = new HashMap<Integer, Pareja>();
 		for (int i = 0; i < vecinos.size(); i++) {
 			if(!datosEliminar.containsKey(vecinos.get(i).getColumna())){
@@ -138,6 +138,14 @@ public class TableroSG implements Tablero {
 		
 		return puntaje;
 	}
+	protected void eliminarColumna () {
+		for(int i=0; i< columnas; i++) {
+			if(this.tableroSG.get(i).get(filas-1)!=null && this.tableroSG.get(i).get(filas-1).getColor()==-1) {
+				eliminarColumna (i);
+				i--;
+			}
+		}
+	}
 	protected void eliminarColumna (int y) {
 		for (int i =y; i<columnas-1; i++) {
 			for(int j=0; j<filas; j++) {
@@ -158,11 +166,12 @@ public class TableroSG implements Tablero {
 				this.tableroSG.get(col).get(i).setColor(-1);
 			}
 		}
-		for(int col: eliminar.keySet()) {
+		eliminarColumna ();
+		/*for(int col: eliminar.keySet()) {
 			if(this.tableroSG.get(col).get(filas-1).getColor()==-1) {
 				eliminarColumna (col);
 			}
-		}
+		}*/
 	}
 	protected List<Casilla> buscarVecinos (int x, int y) {
 		List<Casilla> vecinos = new ArrayList<Casilla>();
@@ -228,11 +237,11 @@ public class TableroSG implements Tablero {
 
             for(int i=0; i<this.filas; i++){
                 for(int j=0; j<this.columnas; j++){
-                    if(tableroSG.get(i).get(j) != null && tableroSG.get(i).get(j).getColor() != -1){
-                        if(tableroSG.get(i).get(j).getColor() == color){
+                    if(tableroSG.get(j).get(i) != null && tableroSG.get(j).get(i).getColor() != -1){
+                        if(tableroSG.get(j).get(i).getColor() == color){
                             try{
-                                this.puntaje += efectuarJugada(tableroSG.get(i).get(j));
-                                this.jugadas.add(tableroSG.get(i).get(j));
+                                this.puntaje += efectuarJugada(tableroSG.get(j).get(i));
+                                
                             }catch(IllegalArgumentException e){
                             }
                         }
@@ -243,11 +252,11 @@ public class TableroSG implements Tablero {
         }
 	public int recorrerColores( ){
 	    for(int i=0; i<this.filas; i++){
-                for(int j=0; j<this.columnas; j++){
-		    if(tableroSG.get(i).get(j) != null && tableroSG.get(i).get(j).getColor() != -1){
-		    	jugarColor( tableroSG.get(i).get(j).getColor());
-		    }
-		}
+	    	for(int j=0; j<this.columnas; j++){
+	    		if(tableroSG.get(j).get(i) != null && tableroSG.get(j).get(i).getColor() != -1){
+	    			jugarColor( tableroSG.get(j).get(i).getColor());
+	    		}
+	    	}
 	    }
 	    return this.puntaje;
 	}	

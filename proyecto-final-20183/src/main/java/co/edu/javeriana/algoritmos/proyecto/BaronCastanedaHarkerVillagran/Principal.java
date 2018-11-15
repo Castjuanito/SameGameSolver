@@ -12,18 +12,27 @@ public class Principal {
 		
 		for (int i =0; i<tableroDemo.getFilas(); i++) {
 			for(int j =0; j<tableroDemo.getColumnas(); j++) {
-				System.out.print(tableroDemo.colorCasilla(i, j)+"\t");
+				if(tableroDemo.colorCasilla(i, j)==-1) {
+					System.out.print("  ");
+				}else {
+					System.out.print(tableroDemo.colorCasilla(i, j)+" ");
+				}
 			}
 			System.out.println();
 		}
 		
 		System.out.println("=======================================");
 		Casilla jugada = new Casilla(5, 4);
+		//tableroDemo.jugarColor(2);
 		tableroDemo.recorrerColores();
 		
 		for (int i =0; i<tableroDemo.getFilas(); i++) {
 			for(int j =0; j<tableroDemo.getColumnas(); j++) {
-				System.out.print(tableroDemo.colorCasilla(i, j)+"\t");
+				if(tableroDemo.colorCasilla(i, j)==-1) {
+					System.out.print("  ");
+				}else {
+					System.out.print(tableroDemo.colorCasilla(i, j)+" ");
+				}
 			}
 			System.out.println();
 		}

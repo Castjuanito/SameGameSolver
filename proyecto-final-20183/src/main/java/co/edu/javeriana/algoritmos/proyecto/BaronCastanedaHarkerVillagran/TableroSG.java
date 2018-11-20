@@ -13,7 +13,7 @@ public class TableroSG implements Tablero {
 	private int numeroColores; 
 	private HashMap<Integer,HashMap<Integer, CasillaSG> > tableroSG;
         private int puntaje =0;
-        private List<Casilla> jugadas;
+        private List<Casilla> jugadas = new ArrayList<Casilla>();
 	
 	class Pareja {
 		int minimo =0;
@@ -45,8 +45,8 @@ public class TableroSG implements Tablero {
 		this.columnas = t.getColumnas();
 		for(int i=0; i < t.getColumnas(); i++){
 			HashMap<Integer,CasillaSG> colum = new HashMap<Integer,CasillaSG>();
-			for(int j=0; j < t.getFilas(); j--){
-				colum.put(j , new CasillaSG(t.colorCasilla(i, j),i,j,false));
+			for(int j=0; j < t.getFilas(); j++){
+				colum.put(j , new CasillaSG(t.colorCasilla(j, i),j,i,false));
 			}
 			tableroSG.put(i,colum);
 		}
@@ -114,7 +114,10 @@ public class TableroSG implements Tablero {
 		if (vecinos.size() <= 1) {
 			throw new IllegalArgumentException("La Judada debe ser de mas de una casilla");
 		}
-		this.jugadas.add(tableroSG.get(jugada.getColumna()).get(jugada.getFila()));
+		
+		Casilla c = new Casilla(jugada.getFila(), jugada.getColumna());
+		this.jugadas.add(c);
+		
 		HashMap<Integer, Pareja> datosEliminar = new HashMap<Integer, Pareja>();
 		for (int i = 0; i < vecinos.size(); i++) {
 			if(!datosEliminar.containsKey(vecinos.get(i).getColumna())){
@@ -167,11 +170,6 @@ public class TableroSG implements Tablero {
 			}
 		}
 		eliminarColumna ();
-		/*for(int col: eliminar.keySet()) {
-			if(this.tableroSG.get(col).get(filas-1).getColor()==-1) {
-				eliminarColumna (col);
-			}
-		}*/
 	}
 	protected List<Casilla> buscarVecinos (int x, int y) {
 		List<Casilla> vecinos = new ArrayList<Casilla>();
@@ -234,7 +232,7 @@ public class TableroSG implements Tablero {
  
 	public int jugarColor(int color){
             this.puntaje=0; //Puntaje total de jugar un color
-            this.jugadas = new ArrayList<Casilla>(); //Jugadas que se hicieron jugando un solo color
+            List<Casilla> jugadasColor = new ArrayList<Casilla>(); //Jugadas que se hicieron jugando un solo color
 
             for(int i=0; i<this.filas; i++){
                 for(int j=0; j<this.columnas; j++){

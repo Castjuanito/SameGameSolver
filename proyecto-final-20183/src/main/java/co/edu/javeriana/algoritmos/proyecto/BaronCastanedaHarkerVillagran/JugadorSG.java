@@ -15,8 +15,9 @@ public class JugadorSG implements Jugador {
 	public List<Casilla> jugar(Tablero tablero) {
 		// TODO Auto-generated method stub
 		TableroSG tSG = new TableroSG(tablero);
-		List<Casilla> lisCasillas = jugarColor(tSG , 0);
-		return lisCasillas;
+		//List<Casilla> lisCasillas = jugarColor(tSG , 0);
+		tSG.recorrerColores();
+		return tSG.getJugadas();
 	}
 
 	@Override

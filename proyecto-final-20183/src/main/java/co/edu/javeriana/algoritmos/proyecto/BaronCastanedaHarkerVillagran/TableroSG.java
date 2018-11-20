@@ -15,11 +15,12 @@ public class TableroSG implements Tablero {
 	public static final int TERMINADO = 1;
 	private int filas;
 	private int columnas;
+
 	private int numeroColores;
 	private HashMap<Integer, HashMap<Integer, CasillaSG>> tableroSG;
 	private int puntaje = 0;
 	private List<Casilla> jugadas;
-
+  
 	class Pareja {
 		int minimo = 0;
 		int maximo = 0;
@@ -50,10 +51,10 @@ public class TableroSG implements Tablero {
 		this.tableroSG = new HashMap<Integer, HashMap<Integer, CasillaSG>>();
 		this.filas = t.getFilas();
 		this.columnas = t.getColumnas();
-		for (int i = 0; i < t.getColumnas(); i++) {
-			HashMap<Integer, CasillaSG> colum = new HashMap<Integer, CasillaSG>();
-			for (int j = 0; j < t.getFilas(); j--) {
-				colum.put(j, new CasillaSG(t.colorCasilla(i, j), i, j, false));
+		for(int i=0; i < t.getColumnas(); i++){
+			HashMap<Integer,CasillaSG> colum = new HashMap<Integer,CasillaSG>();
+			for(int j=0; j < t.getFilas(); j++){
+				colum.put(j , new CasillaSG(t.colorCasilla(j, i),j,i,false));
 			}
 			tableroSG.put(i, colum);
 		}
@@ -122,7 +123,10 @@ public class TableroSG implements Tablero {
 		if (vecinos.size() <= 1) {
 			throw new IllegalArgumentException("La Judada debe ser de mas de una casilla");
 		}
-		this.jugadas.add(tableroSG.get(jugada.getColumna()).get(jugada.getFila()));
+		
+		Casilla c = new Casilla(jugada.getFila(), jugada.getColumna());
+		this.jugadas.add(c);
+		
 		HashMap<Integer, Pareja> datosEliminar = new HashMap<Integer, Pareja>();
 		for (int i = 0; i < vecinos.size(); i++) {
 			if (!datosEliminar.containsKey(vecinos.get(i).getColumna())) {
@@ -319,7 +323,6 @@ public class TableroSG implements Tablero {
 		}
 		return colores;
 	}
-	
 	
 
 }

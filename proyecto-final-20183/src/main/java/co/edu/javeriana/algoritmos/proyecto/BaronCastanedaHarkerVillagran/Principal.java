@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.javeriana.algoritmos.proyecto.Casilla;
+import co.edu.javeriana.algoritmos.proyecto.Jugador;
 
 public class Principal {
 
@@ -21,10 +22,25 @@ public class Principal {
 			System.out.println();
 		}
 		
+		Jugador jugador = new JugadorSG();
+		List<Casilla> jugadas = jugador.jugar(tableroDemo);
+		
+		for (Casilla casilla : jugadas) {
+			System.out.println(casilla);
+		}
+		System.out.println();
+		
+		tableroDemo = crearDemo();
 		System.out.println("=======================================");
-		Casilla jugada = new Casilla(5, 4);
-		//tableroDemo.jugarColor(2);
-		tableroDemo.recorrerColores();
+		for (Casilla casilla : jugadas) {
+			try {
+				tableroDemo.efectuarJugada(casilla);
+			}catch(IllegalArgumentException e) {
+				System.err.println(casilla+":"+e.getMessage());
+			}
+		}
+		System.out.println("=======================================");
+		
 		
 		for (int i =0; i<tableroDemo.getFilas(); i++) {
 			for(int j =0; j<tableroDemo.getColumnas(); j++) {

@@ -145,10 +145,10 @@ public class TableroSG implements Tablero {
 		}
 		eliminarCasilla(datosEliminar);
 
-		int puntaje = 0;
-		puntaje = (vecinos.size() - 2) * (vecinos.size() - 2);
-
-		return puntaje;
+		int puntajeJ = 0;
+		puntajeJ = (vecinos.size() - 2) * (vecinos.size() - 2);
+		this.puntaje += puntajeJ;
+		return puntajeJ;
 	}
 
 	protected void eliminarColumna() {
@@ -249,7 +249,8 @@ public class TableroSG implements Tablero {
 	 * Retornar tambien puntaje asociado a esas jugadas.
 	 */
 	public int jugarColor(int color) {
-		this.puntaje = 0; // Puntaje total de jugar un color
+		//this.puntaje = 0; // Puntaje total de jugar un color
+		int puntajeColor = 0;
 		this.jugadas = new ArrayList<Casilla>(); // Jugadas que se hicieron jugando un solo color
 
 		for (int i = 0; i < this.filas; i++) {
@@ -257,7 +258,7 @@ public class TableroSG implements Tablero {
 				if (tableroSG.get(j).get(i) != null && tableroSG.get(j).get(i).getColor() != -1) {
 					if (tableroSG.get(j).get(i).getColor() == color) {
 						try {
-							this.puntaje += efectuarJugada(tableroSG.get(j).get(i));
+							puntajeColor += efectuarJugada(tableroSG.get(j).get(i));
 
 						} catch (IllegalArgumentException e) {
 						}
@@ -265,7 +266,7 @@ public class TableroSG implements Tablero {
 				}
 			}
 		}
-		return this.puntaje;
+		return puntajeColor;
 	}
 
 	public int recorrerColores() {

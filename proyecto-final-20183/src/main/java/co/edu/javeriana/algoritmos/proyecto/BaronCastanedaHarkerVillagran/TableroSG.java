@@ -19,7 +19,7 @@ public class TableroSG implements Tablero {
 	private int numeroColores;
 	private HashMap<Integer, HashMap<Integer, CasillaSG>> tableroSG;
 	private int puntaje = 0;
-	private List<Casilla> jugadas;
+	private List<Casilla> jugadas = new ArrayList<Casilla>();
   
 	class Pareja {
 		int minimo = 0;
@@ -251,7 +251,7 @@ public class TableroSG implements Tablero {
 	public int jugarColor(int color) {
 		//this.puntaje = 0; // Puntaje total de jugar un color
 		int puntajeColor = 0;
-		this.jugadas = new ArrayList<Casilla>(); // Jugadas que se hicieron jugando un solo color
+		List<Casilla> jugadasColor = new ArrayList<Casilla>(); // Jugadas que se hicieron jugando un solo color
 
 		for (int i = 0; i < this.filas; i++) {
 			for (int j = 0; j < this.columnas; j++) {

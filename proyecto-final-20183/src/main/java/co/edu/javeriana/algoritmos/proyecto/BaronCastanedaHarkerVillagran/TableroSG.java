@@ -31,6 +31,10 @@ public class TableroSG implements Tablero {
 		}
 	}
 
+	/**
+	 * Constructor con un tablero tipo TableroSG
+	 * @param t
+	 */
 	public TableroSG(TableroSG t) {
 		this.jugadas = new ArrayList<Casilla>();
 		this.tableroSG = new HashMap<Integer, HashMap<Integer, CasillaSG>>();
@@ -47,6 +51,10 @@ public class TableroSG implements Tablero {
 		this.jugadas.addAll(t.getJugadas());
 	}
 
+	/**
+	 * Constructor con un tablero tipo Tablero
+	 * @param t
+	 */
 	public TableroSG(Tablero t) {
 		this.tableroSG = new HashMap<Integer, HashMap<Integer, CasillaSG>>();
 		this.filas = t.getFilas();
@@ -60,6 +68,11 @@ public class TableroSG implements Tablero {
 		}
 	}
 
+	/**
+	 * Constructor clase con coordenadas
+	 * @param filas
+	 * @param columnas
+	 */
 	public TableroSG(int filas, int columnas) {
 		this.filas = filas;
 		this.columnas = columnas;
@@ -74,6 +87,13 @@ public class TableroSG implements Tablero {
 		}
 	}
 
+	
+	/**
+	 * Dada una coordenada y un color se modifica la informacion de una casilla especifica
+	 * @param x
+	 * @param y
+	 * @param color
+	 */
 	public void modificarCasilla(int x, int y, int color) {
 		tableroSG.get(y).get(x).setColor(color);
 	}
@@ -151,6 +171,9 @@ public class TableroSG implements Tablero {
 		return puntajeJ;
 	}
 
+	/**
+	 * Eliminar una columna que no contiene casillas
+	 */
 	protected void eliminarColumna() {
 		for (int i = 0; i < columnas; i++) {
 			if (this.tableroSG.get(i).get(filas - 1) != null && this.tableroSG.get(i).get(filas - 1).getColor() == -1) {
@@ -160,6 +183,9 @@ public class TableroSG implements Tablero {
 		}
 	}
 
+	/**
+	 * Eliminar una columna dada una posicion especifica
+	 */
 	protected void eliminarColumna(int y) {
 		for (int i = y; i < columnas - 1; i++) {
 			for (int j = 0; j < filas; j++) {
@@ -171,6 +197,10 @@ public class TableroSG implements Tablero {
 		columnas--;
 	}
 
+	/**
+	 * Eliminar una casilla
+	 * @param eliminar
+	 */
 	protected void eliminarCasilla(HashMap<Integer, Pareja> eliminar) {
 		for (int col : eliminar.keySet()) {
 			int cantEliminar = eliminar.get(col).maximo - eliminar.get(col).minimo + 1;
@@ -189,6 +219,12 @@ public class TableroSG implements Tablero {
 		 */
 	}
 
+	/**
+	 * Buscar vecinos dado una coordenada
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	protected List<Casilla> buscarVecinos(int x, int y) {
 		List<Casilla> vecinos = new ArrayList<Casilla>();
 		vecinos = buscarVecinosAux(x, y, this.tableroSG.get(y).get(x).getColor());
@@ -198,6 +234,13 @@ public class TableroSG implements Tablero {
 		return vecinos;
 	}
 
+	/**
+	 * Buscar los vecinos de una casilla específica
+	 * @param x
+	 * @param y
+	 * @param color
+	 * @return
+	 */
 	protected List<Casilla> buscarVecinosAux(int x, int y, int color) {
 		List<Casilla> vecinos = new ArrayList<Casilla>();
 		if (x < 0 || y < 0 || x >= this.filas || y >= this.columnas) {
@@ -250,8 +293,9 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * 1. Cambiar el retorno dentro del if 2. Retornar lista de juagadas. 3.
-	 * Retornar tambien puntaje asociado a esas jugadas.
+	 * Es el inicio para realizar una jugada en el tablero a partir de un color específico.
+	 * @param color
+	 * @return
 	 */
 	public int jugarColor(int color) {
 		//this.puntaje = 0; // Puntaje total de jugar un color
@@ -274,6 +318,10 @@ public class TableroSG implements Tablero {
 		return puntajeColor;
 	}
 
+	/**
+	 * Obtener información de los colores presentes en el tablero para jugar con cada uno de ellos
+	 * @return
+	 */
 	public int recorrerColores() {
 		for (int i = 0; i < this.filas; i++) {
 			for (int j = 0; j < this.columnas; j++) {
@@ -285,22 +333,40 @@ public class TableroSG implements Tablero {
 		return this.puntaje;
 	}
 
+	/**
+	 * @return el puntaje
+	 */
 	public int getPuntaje() {
 		return puntaje;
 	}
 
+	/**
+	 * @return las jugadas
+	 */
 	public List<Casilla> getJugadas() {
 		return jugadas;
 	}
 
+	/**
+	 * Establecer puntaje
+	 * @param puntaje
+	 */
 	public void setPuntaje(int puntaje) {
 		this.puntaje = puntaje;
 	}
 
+	/**
+	 * Fijar jugadas
+	 * @param jugadas
+	 */
 	public void setJugadas(List<Casilla> jugadas) {
 		this.jugadas = jugadas;
 	}
 
+	/**
+	 * Método que permite verificar si es posible realizar modificaciones adicionales a las casillas
+	 * @return
+	 */
 	public int checkEstado() {
 		int estado = TERMINADO;
 		for (int i = 0; i < this.filas; i++) {
@@ -316,6 +382,10 @@ public class TableroSG implements Tablero {
 		return estado;
 	}
 
+	/**
+	 * Obtener la lista de los colores presentes en el tablero.
+	 * @return
+	 */
 	public List<Integer> getColores() {
 		List<Integer> colores= new ArrayList<Integer>() ;
 		

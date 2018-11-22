@@ -240,8 +240,13 @@ public class TableroSG implements Tablero {
 
 	@Override
 	public int[][] coloresTablero() {
-		// TODO: Transformar mapa a matriz
-		return null;
+		int[][] nuevaMatriz = new int [filas][columnas];
+		for (int i=0; i<filas; i++) {
+			for(int j=0; j<columnas; j++) {
+				nuevaMatriz[i][j]=tableroSG.get(j).get(i).getColor();
+			}
+		}
+		return nuevaMatriz;
 	}
 
 	/**

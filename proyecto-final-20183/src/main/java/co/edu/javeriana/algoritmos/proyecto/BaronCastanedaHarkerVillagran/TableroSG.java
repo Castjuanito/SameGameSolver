@@ -38,7 +38,7 @@ public class TableroSG implements Tablero {
 		this.columnas = t.getColumnas();
 		for (int i = 0; i < t.getColumnas(); i++) {
 			HashMap<Integer, CasillaSG> colum = new HashMap<Integer, CasillaSG>();
-			for (int j = 0; j < t.getFilas(); j--) {
+			for (int j = 0; j < t.getFilas(); j++) {
 				colum.put(j, new CasillaSG(t.colorCasilla(i, j), i, j, false));
 			}
 			tableroSG.put(i, colum);

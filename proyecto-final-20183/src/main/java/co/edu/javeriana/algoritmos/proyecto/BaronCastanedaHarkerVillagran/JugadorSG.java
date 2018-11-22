@@ -10,12 +10,16 @@ import co.edu.javeriana.algoritmos.proyecto.Tablero;
 public class JugadorSG implements Jugador {
 	private int puntaje;
 	private List<CasillaSG> jugadas;
-	
+	/**
+	* Dado un tablero realiza las jugadas a travez de la clase TableroSG
+	* @param tablero : Tablero en donde se van a efectuar las jugadas
+	* @return : lista ordenada de jugadas que se deben efectuar sobre el tablero
+	*/
 	@Override
 	public List<Casilla> jugar(Tablero tablero) {
-		// TODO Auto-generated method stub
+
 		TableroSG tSG = new TableroSG(tablero);
-		//List<Casilla> lisCasillas = jugarColor(tSG , 0);
+
 		tSG.recorrerColores();
 		return tSG.getJugadas();
 	}

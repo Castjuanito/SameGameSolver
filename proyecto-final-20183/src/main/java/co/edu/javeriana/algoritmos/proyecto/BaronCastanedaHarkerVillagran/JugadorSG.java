@@ -26,6 +26,14 @@ public class JugadorSG implements Jugador {
 		return null;
 	}
 	
+	/**
+	 * Dado un color y el tablero se realiza una accion de eliminar
+	 * casillas vecinas con el mismo color
+	 * 
+	 * @param tSG
+	 * @param c
+	 * @return
+	 */
 	public List<Casilla> jugarColor(TableroSG tSG, int c){
 		
 		this.puntaje=0; //Puntaje total de jugar un color
@@ -52,6 +60,16 @@ public class JugadorSG implements Jugador {
 		return null;
 	}
 	
+	/**
+	 * Dado la posicion de una casilla, un color y el tablero de juego se 
+	 * buscan los vecinos con el mismo color
+	 * 
+	 * @param x
+	 * @param y
+	 * @param color
+	 * @param tSG
+	 * @return una secuencia con los vecinos cercanos a la casilla del mismo color
+	 */
 	private List<CasillaSG> buscarVecinos(int x, int y, int color, TableroSG tSG){
 		CasillaSG c =  (tSG.getTableroSG().get(x).get(y) != null)? tSG.getTableroSG().get(x).get(y) : null;
 		List<CasillaSG> vecinos = new ArrayList<CasillaSG>();
@@ -70,6 +88,12 @@ public class JugadorSG implements Jugador {
 		return vecinos;
 	}
 	
+	/**
+	 * Eliminar del tablero el conjunto de elementos que tengan una misma caracteristica
+	 * @param grupo
+	 * @param tSG
+	 * @return
+	 */
 	private int quitarConjunto(List<CasillaSG> grupo,TableroSG tSG){
 		for(CasillaSG c : grupo){
 			for(int i = c.getFila(); i>-1; i--){
@@ -83,6 +107,11 @@ public class JugadorSG implements Jugador {
 		return 0;
 	}
 	
+	/**
+	 * Verifica el tablero para que las casillas arriba del espacio eliminado caigan o se muevan a la izquierda
+	 * @param tSG
+	 * @return
+	 */
 	private Tablero actualizarTablero(TableroSG tSG){
 		TableroSG tNuevo = new TableroSG(tSG.getFilas(),tSG.getColumnas());
 		for(int i=0; i<tSG.getFilas();i++){
@@ -97,6 +126,12 @@ public class JugadorSG implements Jugador {
 		return tNuevo;
 	}
 
+	/**
+	 * Se verifica si existe un conjunto del mismo color en una secuencia seleccionada
+	 * @param vecinos
+	 * @param tSG
+	 * @return
+	 */
 	private int arribaAbajo(List<CasillaSG> vecinos, TableroSG tSG){
 		int puntaje=0;
 		for(Casilla c : vecinos){

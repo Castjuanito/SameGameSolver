@@ -11,16 +11,36 @@ import co.edu.javeriana.algoritmos.proyecto.Tablero;
 
 public class TableroSG implements Tablero {
 
+	/**
+	 * EN_PROCESO: Al utilizar el arbol monteCarlo, si aun se esta realizando el arbol
+	 * TERMINADO: Al utilizar el arbol monteCarlo, si ya se realizo el arbol y hay una respuesta
+	 */
 	public static final int EN_PROCESO = 0;
 	public static final int TERMINADO = 1;
+	
+	/**
+	 * filas: Cantidad de filas del tablero
+	 * columnas: Cantidad de columnas actual del pablero. Se actualiza cada vez que se elimina una columna
+	 */
 	private int filas;
 	private int columnas;
-
+	/**
+	 * numeroColores: Cantidad de colores en el tablero inicial
+	 * tableroSG: Tablero con los colores
+	 * puntaje: Puntaje total despues de efectuar las jugadas
+	 * jugadas: Jugadas efectuadas sobre el tablero
+	 */
 	private int numeroColores;
 	private HashMap<Integer, HashMap<Integer, CasillaSG>> tableroSG;
 	private int puntaje = 0;
 	private List<Casilla> jugadas = new ArrayList<Casilla>();
   
+	/**
+	 * Clase auxiliar para guardar el tamaño del bloque que se vaa eliminar
+	 * Solo es el tamaño de un bloque de en una columna
+	 * minimo: fila inferior del bloque
+	 * maximo: fila superior del bloque
+	 */
 	class Pareja {
 		int minimo = 0;
 		int maximo = 0;
@@ -33,7 +53,7 @@ public class TableroSG implements Tablero {
 
 	/**
 	 * Constructor con un tablero tipo TableroSG
-	 * @param t
+	 * @param t: Tablero con los datos para inicializar uno nuevo
 	 */
 	public TableroSG(TableroSG t) {
 		this.jugadas = new ArrayList<Casilla>();
@@ -53,7 +73,7 @@ public class TableroSG implements Tablero {
 
 	/**
 	 * Constructor con un tablero tipo Tablero
-	 * @param t
+	 * @param t: Tablero con los datos para inicializar uno nuevo
 	 */
 	public TableroSG(Tablero t) {
 		this.tableroSG = new HashMap<Integer, HashMap<Integer, CasillaSG>>();
@@ -69,7 +89,7 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * Constructor clase con coordenadas
+	 * Constructor clase con coordenadas, Crea un tablero vacio, sin colores
 	 * @param filas
 	 * @param columnas
 	 */
@@ -90,16 +110,16 @@ public class TableroSG implements Tablero {
 	
 	/**
 	 * Dada una coordenada y un color se modifica la informacion de una casilla especifica
-	 * @param x
-	 * @param y
-	 * @param color
+	 * @param x: Fila donde se encuentra la casilla
+	 * @param y: Columna donde se encuentra la casilla
+	 * @param color: Nuevo color que tendra la casilla
 	 */
 	public void modificarCasilla(int x, int y, int color) {
 		tableroSG.get(y).get(x).setColor(color);
 	}
 
 	/**
-	 * @return the tableroSG
+	 * @return tableroSG: Tablero con los colores que tiene actualmenete
 	 */
 	public HashMap<Integer, HashMap<Integer, CasillaSG>> getTableroSG() {
 		return tableroSG;
@@ -111,7 +131,11 @@ public class TableroSG implements Tablero {
 	public void setTableroSG(HashMap<Integer, HashMap<Integer, CasillaSG>> tableroSG) {
 		this.tableroSG = tableroSG;
 	}
-
+	/**
+	 * Verifica si un jugada se puede realizar
+	 * @param jugada: Jugada que se va a evaluar
+	 * @return Retorna 0 si se puede ejfectuar la jugada, o lanza un error si no se puede efectuar
+	 */
 	@Override
 	public int simularJugada(Casilla jugada) throws IllegalArgumentException {
 		if (jugada.getFila() < 0 || jugada.getColumna() < 0 || jugada.getFila() >= this.filas
@@ -128,7 +152,11 @@ public class TableroSG implements Tablero {
 		}
 		return 0;
 	}
-
+	/**
+	 * Realiza una juada y la guarda en la lista de jugadas si esta se puede realizar. Actualiza el puntaje total
+	 * @param jugada: Jugada que se va a realizar
+	 * @return Retorna puntaje de la jugada si se puede ejfectuar la jugada, o lanza un error si no se puede efectuar
+	 */
 	@Override
 	public int efectuarJugada(Casilla jugada) throws IllegalArgumentException {
 		if (jugada.getFila() < 0 || jugada.getColumna() < 0 || jugada.getFila() >= this.filas
@@ -172,7 +200,7 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * Eliminar una columna que no contiene casillas
+	 * Eliminar las columnas que no contiene casillas (Todas las casillas son -1), este metodo solo lo utiliza efectuarJugada
 	 */
 	protected void eliminarColumna() {
 		for (int i = 0; i < columnas; i++) {
@@ -184,7 +212,7 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * Eliminar una columna dada una posicion especifica
+	 * Eliminar una columna dada una posicion especifica, este metodo solo lo utiliza eliminarColumna()
 	 */
 	protected void eliminarColumna(int y) {
 		for (int i = y; i < columnas - 1; i++) {
@@ -198,8 +226,8 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * Eliminar una casilla
-	 * @param eliminar
+	 * Elimina las casillas que se encuentran en un bloque determinado por la Pareja eliminar, este metodo solo lo utiliza efectuarJugada
+	 * @param eliminar: Son los bloque que se van a eliminar (casillas con -1)
 	 */
 	protected void eliminarCasilla(HashMap<Integer, Pareja> eliminar) {
 		for (int col : eliminar.keySet()) {
@@ -212,18 +240,14 @@ public class TableroSG implements Tablero {
 			}
 		}
 		eliminarColumna();
-		/*
-		 * for(int col: eliminar.keySet()) {
-		 * if(this.tableroSG.get(col).get(filas-1).getColor()==-1) { eliminarColumna
-		 * (col); } }
-		 */
+
 	}
 
 	/**
-	 * Buscar vecinos dado una coordenada
-	 * @param x
-	 * @param y
-	 * @return
+	 * Buscar vecinos del mismo color dado una coordenada, solo se puede utilizar dentro de la clase Tablero
+	 * @param x: Fila donde se encuentra la casilla
+	 * @param y: Columna donde se encuentra la casilla
+	 * @return : casillas vecinas del mismo color incluyendose a ella misma
 	 */
 	protected List<Casilla> buscarVecinos(int x, int y) {
 		List<Casilla> vecinos = new ArrayList<Casilla>();
@@ -235,9 +259,9 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * Buscar los vecinos de una casilla específica
-	 * @param x
-	 * @param y
+	 * Buscar los vecinos de una casilla específica dado un color, solo la utiliza el metodo buscarVecinos
+	 * @param x: Fila donde se encuentra la casilla
+	 * @param y: Columna donde se encuentra la casilla
 	 * @param color
 	 * @return
 	 */
@@ -293,9 +317,9 @@ public class TableroSG implements Tablero {
 	}
 
 	/**
-	 * Es el inicio para realizar una jugada en el tablero a partir de un color específico.
-	 * @param color
-	 * @return
+	 * Realiza todas las jugadas posibles de un color especifico
+	 * @param color:
+	 * @return puntaje al realizar todas las jugadas del colos 'color'
 	 */
 	public int jugarColor(int color) {
 		//this.puntaje = 0; // Puntaje total de jugar un color
@@ -320,7 +344,8 @@ public class TableroSG implements Tablero {
 
 	/**
 	 * Obtener información de los colores presentes en el tablero para jugar con cada uno de ellos
-	 * @return
+	 * Recorre el tablero y de forma avara juega con el primer color que encuentra utilizando el metodo jugarColor
+	 * @return puntaje total despues de efectuar las jugadas
 	 */
 	public int recorrerColores() {
 		for (int i = 0; i < this.filas; i++) {

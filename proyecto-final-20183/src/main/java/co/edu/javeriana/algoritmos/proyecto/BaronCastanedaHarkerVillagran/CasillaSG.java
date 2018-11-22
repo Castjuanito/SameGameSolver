@@ -7,10 +7,15 @@ public class CasillaSG extends Casilla {
 	private int color;
 	private boolean visitado;
 	
-
+	/**
+	 * @param color : Color que va a tener la casilla
+	 * @param fila : fila donde se encuentra la casilla
+	 * @param columna : columna donde se encuentra la casilla
+	 * @param visitado : utilizado en buscarVecino, false si no se ha vistado; true si ya se visito
+	 */
 	public CasillaSG(int color,int fila, int columna, boolean visitado) {
 		super(fila, columna);
-		// TODO Auto-generated constructor stub
+
 		this.color=color;
 		this.visitado=visitado;
 	}
